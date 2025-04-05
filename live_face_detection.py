@@ -3,36 +3,53 @@ import cv2
 import threading
 
 
-cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
+face_detected = False
 
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+def live_face_detection(base_image, video_path : str = None):
+    #global cap
 
+    if video_path is not None:
+        # Use video file
+        cap = cv2.VideoCapture(video_path)
+    else:
+        # Use webcam
+        cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
-counter = 0
-
-while True:
-    ret, frame = cap.read()
-
-    if ret:
-        if counter % 20 == 0:
-            try:
-                threading.Thread(target=face_detector.recognize_face, args=(cv2.imread("photos\\photo.jpg"), frame.copy(),)).start()
-            except ValueError:
-                pass
-        counter += 1
+    cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 
-        if face_detector.face_match:
-            cv2.putText(frame, "MATCH!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 255, 0), 3)
-        else:
-            cv2.putText(frame, "NO MATCH!", (20, 450), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 255), 3)
+    counter = 0
 
-        cv2.imshow('video', frame)
+    while True:
+        ret, frame = cap.read()
 
-    key = cv2.waitKey(1)
-    if key == ord('q'):
-        break
+        if frame is None:
+            break
 
-cv2.destroyAllWindows()
+        if ret:
+            if counter % 30 == 0:
+                try:
+                    threading.Thread(target=face_detector.recognize_face, args=(base_image, 
+                                                                                frame.copy(),)).start()
+                except ValueError:
+                    pass
+            counter += 1
+
+
+            if face_detector.face_match:
+                face_detected = True
+            else:
+                face_detected = False
+                
+            print("Face detected:", face_detected)
+
+            cv2.imshow("Live Face Detection", frame)
+
+        key = cv2.waitKey(1)
+        if key == 27: # ESC key
+            break
+
+    cap.release()
+
 
