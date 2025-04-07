@@ -15,18 +15,18 @@ def detect_face(image):
     
 
 def recognize_face(base_image, input_image):
-    if detect_face(base_image) and detect_face(input_image):
-        # Get the face encodings for the known face and the unknown face
-        my_face_encoding = face_recognition.face_encodings(base_image)[0]
-        unknown_encoding = face_recognition.face_encodings(input_image)[0]
+    # Convert images to RGB
+    base_image_rgb = cv2.cvtColor(base_image, cv2.COLOR_BGR2RGB)
+    input_image_rgb = cv2.cvtColor(input_image, cv2.COLOR_BGR2RGB)
 
-        # Now we can see the two face encodings are of the same person with `compare_faces`!
-        results = face_recognition.compare_faces([my_face_encoding], unknown_encoding)
+    # Get face encodings once
+    base_face_encodings = face_recognition.face_encodings(base_image_rgb)
+    input_face_encodings = face_recognition.face_encodings(input_image_rgb)
 
-        if results[0]:
-            global face_match
-            face_match = True
-        else:
-            face_match = False
-    else: 
-        face_match = False
+    # Check if faces are detected in both images
+    if len(base_face_encodings) == 0 or len(input_face_encodings) == 0:
+        return False
+
+    # Compare faces
+    results = face_recognition.compare_faces([base_face_encodings[0]], input_face_encodings[0])
+    return results[0]
