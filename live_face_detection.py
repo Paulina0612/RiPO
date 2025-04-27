@@ -35,7 +35,7 @@ def face_detection(base_image, video_path: str = None):
                     face_detected = False
 
             # Display the result on the video frame
-            text = "Face Detected: " + str(face_detected)
+            text = "Face Recognized: " + str(face_detected)
             color = (0, 255, 0) if face_detected else (0, 0, 255)  # Green for True, Red for False
             cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
 
