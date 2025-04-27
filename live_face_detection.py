@@ -2,9 +2,9 @@ import face_detector
 import cv2
 import threading
 
-
 face_detected = False
 event = threading.Event()
+ifOpen = True
 
 def face_detection(base_image, video_path: str = None):
     if video_path is not None:
@@ -19,23 +19,35 @@ def face_detection(base_image, video_path: str = None):
 
     counter = 0
 
-    while event.is_set() == False:
+    while event.is_set() == False or ifOpen:
         ret, frame = cap.read()
 
         if frame is None:
-            break
+           return
 
         if ret:
             if counter % 20 == 0:  # Process every 20th frame
                 try:
                     # Perform face recognition
+                    global face_detected
                     face_detected = face_detector.recognize_face(base_image, frame.copy())
-                    print("Face detected:", face_detected)
                 except ValueError:
                     face_detected = False
-                    print("Error during face recognition.")
+
+            # Display the result on the video frame
+            text = "Face Detected: " + str(face_detected)
+            color = (0, 255, 0) if face_detected else (0, 0, 255)  # Green for True, Red for False
+            cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
+
+            # Show the video frame
+            cv2.imshow("Video", frame)
 
             counter += 1
+
+        # Wait for the ESC key to exit
+        key = cv2.waitKey(1)
+        if key == 27:  # ESC key
+            return
 
     cap.release()
     cv2.destroyAllWindows()
@@ -46,9 +58,8 @@ def live_face_detection(base_image, video_path: str = None):
     thread2 = threading.Thread(target=listener)
     thread.start()
     thread2.start()
-    
+
 
 def listener():
     input()
     event.set()
-    
