@@ -1,20 +1,33 @@
+import face_recognition
+import numpy as np
 import face_detector
 import cv2
 import threading
 from enum import Enum
+from PIL import Image, ImageDraw
 
 face_detected = False
 event = threading.Event()
 ifOpen = True
 
+normal_makeup = ((39, 54, 68), (0, 0, 150), (255, 255, 255), (0, 0, 0))
+funny_makeup = ((255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0))
+
 class Filer(Enum):
-    GREYSCALE = 1
-    NEGATIVE = 2
+    NORMAL_MAKEUP = 1
+    FUNNY_MAKEUP = 2
     NONE = 3
 
 filter = Filer.NONE
 
 def face_detection(base_image, video_path: str = None):
+    # Menu for selecting filter
+    global filter
+    print("Select filter:")
+    print("1. Normal Makeup")
+    print("2. Funny Makeup")
+    print("3. Funny Makeup")
+
     if video_path is not None:
         # Use video file
         cap = cv2.VideoCapture(video_path)
@@ -32,7 +45,7 @@ def face_detection(base_image, video_path: str = None):
 
         if frame is None:
            return
-
+        
         if ret:
             if counter % 20 == 0:  # Process every 20th frame
                 try:
@@ -60,14 +73,16 @@ def face_detection(base_image, video_path: str = None):
         key = cv2.waitKey(1)
         if key == 27:  # ESC key
             return
+        elif cv2.getWindowProperty("Video", cv2.WND_PROP_VISIBLE) <1:
+            return
         # 1 key to toggle filter
-        elif key == 49:  
-            filter = Filer.GREYSCALE
+        elif key == 49 and face_detected:  
+            filter = Filer.NORMAL_MAKEUP       
         # 2 key to toggle filter
-        elif key == 50:
-            filter = Filer.NEGATIVE
+        elif key == 50 and face_detected:
+            filter = Filer.FUNNY_MAKEUP
         # 3 key to toggle filter
-        elif key == 51:
+        elif key == 51 and face_detected:
             filter = Filer.NONE
 
     cap.release()
@@ -86,11 +101,62 @@ def listener():
     event.set()
 
 
-# TODO: Change to use filter only on face
 def use_filter(frame):
-    if filter == Filer.GREYSCALE:
-        return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    elif filter == Filer.NEGATIVE:
-        return cv2.bitwise_not(frame)   
-    else:
+    if face_detected == False:
         return frame
+    
+    makeup_colors=normal_makeup if filter==Filer.NORMAL_MAKEUP else funny_makeup
+
+    if filter == Filer.NORMAL_MAKEUP or filter == Filer.FUNNY_MAKEUP:
+        return apply_makeup(frame, makeup_colors)
+    elif filter == Filer.NONE:
+        return frame
+    
+
+def apply_makeup(frame, makeup_colors):
+    # Find all facial features in all the faces in the image
+    face_landmarks_list = face_recognition.face_landmarks(frame)
+
+    pil_image = Image.fromarray(frame)
+    for face_landmarks in face_landmarks_list:
+        d = ImageDraw.Draw(pil_image, 'RGBA')
+
+        # Make the eyebrows into a nightmare
+        d.polygon(face_landmarks['left_eyebrow'], fill=(
+            makeup_colors[0][0], makeup_colors[0][1], makeup_colors[0][2], 128))
+        d.polygon(face_landmarks['right_eyebrow'], fill=(
+            makeup_colors[0][0], makeup_colors[0][1], makeup_colors[0][2], 128))
+        d.line(face_landmarks['left_eyebrow'], fill=(
+            makeup_colors[0][0], makeup_colors[0][1], makeup_colors[0][2], 150), 
+            width=5)
+        d.line(face_landmarks['right_eyebrow'], fill=(
+            makeup_colors[0][0], makeup_colors[0][1], makeup_colors[0][2], 150), 
+            width=5)
+
+        # Gloss the lips
+        d.polygon(face_landmarks['top_lip'], fill=(
+            makeup_colors[1][0], makeup_colors[1][1], makeup_colors[1][2], 128))
+        d.polygon(face_landmarks['bottom_lip'], fill=(
+            makeup_colors[1][0], makeup_colors[1][1], makeup_colors[1][2], 128))
+        d.line(face_landmarks['top_lip'], fill=(
+            makeup_colors[1][0], makeup_colors[1][1], makeup_colors[1][2], 64), 
+            width=8)
+        d.line(face_landmarks['bottom_lip'], fill=(
+            makeup_colors[1][0], makeup_colors[1][1], makeup_colors[1][2], 64), 
+            width=8)
+
+        # Sparkle the eyes
+        d.polygon(face_landmarks['left_eye'], fill=(
+            makeup_colors[2][0], makeup_colors[2][1], makeup_colors[2][2], 30))
+        d.polygon(face_landmarks['right_eye'], fill=(
+            makeup_colors[2][0], makeup_colors[2][1], makeup_colors[2][2], 30))
+
+        # Apply some eyeliner
+        d.line(face_landmarks['left_eye'] + [face_landmarks['left_eye'][0]], 
+            fill=(makeup_colors[3][0], makeup_colors[3][1], makeup_colors[3][2], 
+                  110), width=6)
+        d.line(face_landmarks['right_eye'] + [face_landmarks['right_eye'][0]], 
+            fill=(makeup_colors[3][0], makeup_colors[3][1], makeup_colors[3][2], 
+                  110), width=6)
+
+    return np.array(pil_image)

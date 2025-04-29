@@ -13,6 +13,10 @@ def detect_face(image):
     else:
         return True
     
+def detect_face_locations(image):
+    # Detect face locations in the image
+    face_locations = face_recognition.face_locations(image)
+    return face_locations
 
 def recognize_face(base_image, input_image):
     # Convert images to RGB
