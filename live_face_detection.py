@@ -1,10 +1,18 @@
 import face_detector
 import cv2
 import threading
+from enum import Enum
 
 face_detected = False
 event = threading.Event()
 ifOpen = True
+
+class Filer(Enum):
+    GREYSCALE = 1
+    NEGATIVE = 2
+    NONE = 3
+
+filter = Filer.NONE
 
 def face_detection(base_image, video_path: str = None):
     if video_path is not None:
@@ -34,20 +42,33 @@ def face_detection(base_image, video_path: str = None):
                 except ValueError:
                     face_detected = False
 
+            
+            # Show the video frame
+            global filter
+            frame = use_filter(frame)
+
             # Display the result on the video frame
             text = "Face Recognized: " + str(face_detected)
             color = (0, 255, 0) if face_detected else (0, 0, 255)  # Green for True, Red for False
             cv2.putText(frame, text, (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2, cv2.LINE_AA)
 
-            # Show the video frame
             cv2.imshow("Video", frame)
-
+            
             counter += 1
 
         # Wait for the ESC key to exit
         key = cv2.waitKey(1)
         if key == 27:  # ESC key
             return
+        # 1 key to toggle filter
+        elif key == 49:  
+            filter = Filer.GREYSCALE
+        # 2 key to toggle filter
+        elif key == 50:
+            filter = Filer.NEGATIVE
+        # 3 key to toggle filter
+        elif key == 51:
+            filter = Filer.NONE
 
     cap.release()
     cv2.destroyAllWindows()
@@ -63,3 +84,13 @@ def live_face_detection(base_image, video_path: str = None):
 def listener():
     input()
     event.set()
+
+
+# TODO: Change to use filter only on face
+def use_filter(frame):
+    if filter == Filer.GREYSCALE:
+        return cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    elif filter == Filer.NEGATIVE:
+        return cv2.bitwise_not(frame)   
+    else:
+        return frame
