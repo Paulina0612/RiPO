@@ -51,8 +51,8 @@ def main():
 
 
 
-#get_reference()
-#menu()
-#main()
+get_reference()
+menu()
+main()
 
-pydoc.writedoc("main")
+#pydoc.writedoc("main")
