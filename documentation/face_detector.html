@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module face_detector</title>
+<link rel="stylesheet" href="styles.css">
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">face_detector</strong></td>
+<td class="extra">face_detector.py</td></tr></table>
+    <p><span class="code">This&nbsp;module&nbsp;provides&nbsp;functions&nbsp;to&nbsp;detect&nbsp;and&nbsp;recognize&nbsp;faces&nbsp;in&nbsp;images&nbsp;using&nbsp;the&nbsp;face_recognition&nbsp;library.&nbsp;It&nbsp;can&nbsp;also&nbsp;detect&nbsp;face&nbsp;locations&nbsp;in&nbsp;images.<br>
+It&nbsp;includes&nbsp;functions&nbsp;to&nbsp;check&nbsp;if&nbsp;a&nbsp;face&nbsp;is&nbsp;detected,&nbsp;get&nbsp;face&nbsp;locations,&nbsp;and&nbsp;compare&nbsp;two&nbsp;images&nbsp;to&nbsp;see&nbsp;if&nbsp;they&nbsp;contain&nbsp;the&nbsp;same&nbsp;face.</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="cv2.html">cv2</a><br>
+</td><td class="multicolumn"><a href="face_recognition.html">face_recognition</a><br>
+</td><td class="multicolumn"><a href="pydoc.html">pydoc</a><br>
+</td><td class="multicolumn"><a href="threading.html">threading</a><br>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-detect_face"><strong>detect_face</strong></a>(image)</dt><dd><span class="code">A&nbsp;function&nbsp;that&nbsp;detects&nbsp;faces&nbsp;in&nbsp;the&nbsp;image.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;image:&nbsp;The&nbsp;image&nbsp;in&nbsp;which&nbsp;to&nbsp;detect&nbsp;faces.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;a&nbsp;face&nbsp;is&nbsp;detected,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;if&nbsp;face&nbsp;is&nbsp;not&nbsp;detected.</span></dd></dl>
+ <dl><dt><a name="-detect_face_locations"><strong>detect_face_locations</strong></a>(image)</dt><dd><span class="code">A&nbsp;function&nbsp;that&nbsp;returns&nbsp;faces'&nbsp;locations&nbsp;if&nbsp;at&nbsp;least&nbsp;one&nbsp;face&nbsp;is&nbsp;detected&nbsp;in&nbsp;the&nbsp;image.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;image:&nbsp;The&nbsp;image&nbsp;in&nbsp;which&nbsp;to&nbsp;detect&nbsp;faces'&nbsp;locations.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;None&nbsp;if&nbsp;no&nbsp;face&nbsp;is&nbsp;detected,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;a&nbsp;list&nbsp;of&nbsp;tuples&nbsp;containing&nbsp;the&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;face&nbsp;locations&nbsp;if&nbsp;at&nbsp;least&nbsp;one&nbsp;face&nbsp;is&nbsp;detected.</span></dd></dl>
+ <dl><dt><a name="-recognize_face"><strong>recognize_face</strong></a>(base_image, input_image)</dt><dd><span class="code">A&nbsp;function&nbsp;that&nbsp;compares&nbsp;two&nbsp;images&nbsp;to&nbsp;check&nbsp;if&nbsp;they&nbsp;contain&nbsp;the&nbsp;same&nbsp;face.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_image:&nbsp;The&nbsp;image&nbsp;to&nbsp;compare&nbsp;against.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;input_image:&nbsp;The&nbsp;image&nbsp;to&nbsp;be&nbsp;compared.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;True&nbsp;if&nbsp;the&nbsp;faces&nbsp;match,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;False&nbsp;if&nbsp;the&nbsp;faces&nbsp;do&nbsp;not&nbsp;match.</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>face_match</strong> = False</td></tr></table>
+</body></html>

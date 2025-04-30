@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module live_face_detection</title>
+<link rel="stylesheet" href="styles.css" />
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">live_face_detection</strong></td>
+<td class="extra">live_face_detection.py</td></tr></table>
+    <p><span class="code">This&nbsp;module&nbsp;uses&nbsp;the&nbsp;face_recognition&nbsp;library&nbsp;to&nbsp;detect&nbsp;faces&nbsp;in&nbsp;a&nbsp;video&nbsp;stream&nbsp;(either&nbsp;from&nbsp;a&nbsp;webcam&nbsp;or&nbsp;a&nbsp;video&nbsp;file).<br>
+It&nbsp;can&nbsp;also&nbsp;apply&nbsp;filter&nbsp;to&nbsp;the&nbsp;detected&nbsp;faces&nbsp;and&nbsp;displays&nbsp;the&nbsp;result&nbsp;in&nbsp;a&nbsp;window.&nbsp;The&nbsp;filter&nbsp;can&nbsp;be&nbsp;changed&nbsp;using&nbsp;keyboard&nbsp;shortcuts.</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="PIL.Image.html">PIL.Image</a><br>
+<a href="PIL.ImageDraw.html">PIL.ImageDraw</a><br>
+</td><td class="multicolumn"><a href="cv2.html">cv2</a><br>
+<a href="face_detector.html">face_detector</a><br>
+</td><td class="multicolumn"><a href="face_recognition.html">face_recognition</a><br>
+<a href="numpy.html">numpy</a><br>
+</td><td class="multicolumn"><a href="pydoc.html">pydoc</a><br>
+<a href="threading.html">threading</a><br>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor index-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
+    
+<tr><td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl>
+<dt class="heading-text"><a href="enum.html#Enum">enum.Enum</a>(<a href="builtins.html#object">builtins.object</a>)
+</dt><dd>
+<dl>
+<dt class="heading-text"><a href="live_face_detection.html#Filer">Filer</a>
+</dt></dl>
+</dd>
+</dl>
+ <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Filer">class <strong>Filer</strong></a>(<a href="enum.html#Enum">enum.Enum</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Filer">Filer</a>(*values)<br>
+&nbsp;<br>
+<a href="enum.html#Enum">Enum</a>&nbsp;for&nbsp;filter&nbsp;options.<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt>Method resolution order:</dt>
+<dd><a href="live_face_detection.html#Filer">Filer</a></dd>
+<dd><a href="enum.html#Enum">enum.Enum</a></dd>
+<dd><a href="builtins.html#object">builtins.object</a></dd>
+</dl>
+<hr>
+Data and other attributes defined here:<br>
+<dl><dt><strong>FUNNY_MAKEUP</strong> = &lt;Filer.FUNNY_MAKEUP: 2&gt;</dl>
+
+<dl><dt><strong>NONE</strong> = &lt;Filer.NONE: 3&gt;</dl>
+
+<dl><dt><strong>NORMAL_MAKEUP</strong> = &lt;Filer.NORMAL_MAKEUP: 1&gt;</dl>
+
+<hr>
+Data descriptors inherited from <a href="enum.html#Enum">enum.Enum</a>:<br>
+<dl><dt><strong>name</strong></dt>
+<dd><span class="code">The&nbsp;name&nbsp;of&nbsp;the&nbsp;Enum&nbsp;member.</span></dd>
+</dl>
+<dl><dt><strong>value</strong></dt>
+<dd><span class="code">The&nbsp;value&nbsp;of&nbsp;the&nbsp;Enum&nbsp;member.</span></dd>
+</dl>
+<hr>
+Static methods inherited from <a href="enum.html#EnumType">enum.EnumType</a>:<br>
+<dl><dt><a name="Filer-__contains__"><strong>__contains__</strong></a>(value)</dt><dd><span class="code">Return&nbsp;True&nbsp;if&nbsp;`value`&nbsp;is&nbsp;in&nbsp;`cls`.<br>
+&nbsp;<br>
+`value`&nbsp;is&nbsp;in&nbsp;`cls`&nbsp;if:<br>
+1)&nbsp;`value`&nbsp;is&nbsp;a&nbsp;member&nbsp;of&nbsp;`cls`,&nbsp;or<br>
+2)&nbsp;`value`&nbsp;is&nbsp;the&nbsp;value&nbsp;of&nbsp;one&nbsp;of&nbsp;the&nbsp;`cls`'s&nbsp;members.</span></dd></dl>
+
+<dl><dt><a name="Filer-__getitem__"><strong>__getitem__</strong></a>(name)</dt><dd><span class="code">Return&nbsp;the&nbsp;member&nbsp;matching&nbsp;`name`.</span></dd></dl>
+
+<dl><dt><a name="Filer-__iter__"><strong>__iter__</strong></a>()</dt><dd><span class="code">Return&nbsp;members&nbsp;in&nbsp;definition&nbsp;order.</span></dd></dl>
+
+<dl><dt><a name="Filer-__len__"><strong>__len__</strong></a>()</dt><dd><span class="code">Return&nbsp;the&nbsp;number&nbsp;of&nbsp;members&nbsp;(no&nbsp;aliases)</span></dd></dl>
+
+<hr>
+Readonly properties inherited from <a href="enum.html#EnumType">enum.EnumType</a>:<br>
+<dl><dt><strong>__members__</strong></dt>
+<dd><span class="code">Returns&nbsp;a&nbsp;mapping&nbsp;of&nbsp;member&nbsp;name-&gt;value.<br>
+&nbsp;<br>
+This&nbsp;mapping&nbsp;lists&nbsp;all&nbsp;enum&nbsp;members,&nbsp;including&nbsp;aliases.&nbsp;Note&nbsp;that&nbsp;this<br>
+is&nbsp;a&nbsp;read-only&nbsp;view&nbsp;of&nbsp;the&nbsp;internal&nbsp;mapping.</span></dd>
+</dl>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-apply_makeup"><strong>apply_makeup</strong></a>(frame, makeup_colors)</dt><dd><span class="code">This&nbsp;function&nbsp;applies&nbsp;the&nbsp;selected&nbsp;makeup&nbsp;colors&nbsp;to&nbsp;the&nbsp;frame.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;frame:&nbsp;The&nbsp;frame&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;base&nbsp;for&nbsp;face&nbsp;recognition.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;makeup_colors:&nbsp;The&nbsp;colors&nbsp;to&nbsp;be&nbsp;used&nbsp;for&nbsp;the&nbsp;makeup.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;frame&nbsp;with&nbsp;the&nbsp;selected&nbsp;makeup&nbsp;applied.</span></dd></dl>
+ <dl><dt><a name="-face_detection"><strong>face_detection</strong></a>(base_image, video_path: str = None)</dt><dd><span class="code">This&nbsp;function&nbsp;detects&nbsp;faces&nbsp;in&nbsp;images&nbsp;and&nbsp;videos.&nbsp;And&nbsp;applies&nbsp;filters&nbsp;to&nbsp;the&nbsp;detected&nbsp;faces.&nbsp;It&nbsp;also&nbsp;displays&nbsp;the&nbsp;result&nbsp;in&nbsp;a&nbsp;window.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_image:&nbsp;The&nbsp;image&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;base&nbsp;for&nbsp;face&nbsp;recognition.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;video_path:&nbsp;The&nbsp;path&nbsp;to&nbsp;the&nbsp;video&nbsp;file.&nbsp;If&nbsp;None,&nbsp;the&nbsp;webcam&nbsp;will&nbsp;be&nbsp;used.</span></dd></dl>
+ <dl><dt><a name="-listener"><strong>listener</strong></a>()</dt><dd><span class="code">This&nbsp;function&nbsp;waits&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;press&nbsp;Enter&nbsp;to&nbsp;stop&nbsp;the&nbsp;face&nbsp;detection&nbsp;and&nbsp;close&nbsp;the&nbsp;window.</span></dd></dl>
+ <dl><dt><a name="-live_face_detection"><strong>live_face_detection</strong></a>(base_image, video_path: str = None)</dt><dd><span class="code">This&nbsp;function&nbsp;starts&nbsp;the&nbsp;face&nbsp;detection&nbsp;in&nbsp;a&nbsp;separate&nbsp;thread&nbsp;and&nbsp;waits&nbsp;for&nbsp;the&nbsp;user&nbsp;to&nbsp;press&nbsp;Enter&nbsp;to&nbsp;stop&nbsp;the&nbsp;detection.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;base_image:&nbsp;The&nbsp;image&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;base&nbsp;for&nbsp;face&nbsp;recognition.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;video_path:&nbsp;The&nbsp;path&nbsp;to&nbsp;the&nbsp;video&nbsp;file.&nbsp;If&nbsp;None,&nbsp;the&nbsp;webcam&nbsp;will&nbsp;be&nbsp;used.</span></dd></dl>
+ <dl><dt><a name="-use_filter"><strong>use_filter</strong></a>(frame)</dt><dd><span class="code">This&nbsp;function&nbsp;applies&nbsp;the&nbsp;selected&nbsp;filter&nbsp;to&nbsp;the&nbsp;frame.<br>
+&nbsp;<br>
+Args:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;frame:&nbsp;The&nbsp;frame&nbsp;to&nbsp;be&nbsp;used&nbsp;as&nbsp;a&nbsp;base&nbsp;for&nbsp;face&nbsp;recognition.<br>
+&nbsp;<br>
+Returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;The&nbsp;frame&nbsp;with&nbsp;the&nbsp;selected&nbsp;filter&nbsp;applied.</span></dd></dl>
+</td></tr></table><p>
+<table class="section">
+<tr class="decor data-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Data</strong></td></tr>
+    
+<tr><td class="decor data-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><strong>event</strong> = &lt;threading.Event at 0x2906e53afd0: unset&gt;<br>
+<strong>face_detected</strong> = False<br>
+<strong>filter</strong> = &lt;Filer.NONE: 3&gt;<br>
+<strong>funny_makeup</strong> = ((255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0))<br>
+<strong>ifOpen</strong> = True<br>
+<strong>normal_makeup</strong> = ((39, 54, 68), (0, 0, 150), (255, 255, 255), (0, 0, 0))</td></tr></table>
+</body></html>

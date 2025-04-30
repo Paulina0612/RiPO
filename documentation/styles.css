@@ -1,0 +1,46 @@
+/* This is a CSS file for styling the documentation */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: rgb(233, 222, 160);
+    color: #333;
+    line-height: 1.6;
+}
+
+table {
+    /* border-collapse: collapse; */
+    border: 2px solid rgb(212, 186, 145);
+    width: 100%;
+    border-radius: 5px;
+}
+
+.heading, .section {
+    color: #333;
+    background-color: rgb(233, 222, 160);
+    width: 100%;
+    border-radius: 5px;
+}
+
+.title, .section-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(27, 27, 79);
+    background-color: rgb(208, 166, 74);
+    width: 20%;
+    text-align: center;
+    border-radius: 5px;
+}
+
+.code {
+    font-style: italic;
+    padding: 10px;
+}
+
+
+

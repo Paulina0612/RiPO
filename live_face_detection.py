@@ -1,10 +1,16 @@
-import face_recognition
+import face_recognition 
 import numpy as np
 import face_detector
 import cv2
 import threading
 from enum import Enum
 from PIL import Image, ImageDraw
+import pydoc
+
+__doc__ ="""
+This module uses the face_recognition library to detect faces in a video stream (either from a webcam or a video file).
+It can also apply filter to the detected faces and displays the result in a window. The filter can be changed using keyboard shortcuts.
+"""
 
 face_detected = False
 event = threading.Event()
@@ -14,19 +20,31 @@ normal_makeup = ((39, 54, 68), (0, 0, 150), (255, 255, 255), (0, 0, 0))
 funny_makeup = ((255, 0, 0), (0, 255, 0), (0, 0, 255), (255, 255, 0))
 
 class Filer(Enum):
+    """
+    Enum for filter options.
+    """
     NORMAL_MAKEUP = 1
     FUNNY_MAKEUP = 2
     NONE = 3
 
 filter = Filer.NONE
 
+
 def face_detection(base_image, video_path: str = None):
+    """
+    This function detects faces in images and videos. And applies filters to the detected faces. It also displays the result in a window.
+
+    Args:
+        base_image: The image to be used as a base for face recognition.
+        video_path: The path to the video file. If None, the webcam will be used.
+    """
     # Menu for selecting filter
     global filter
     print("Select filter:")
     print("1. Normal Makeup")
     print("2. Funny Makeup")
     print("3. Funny Makeup")
+    print("Press ESC to exit and Enter to stop the detection.")
 
     if video_path is not None:
         # Use video file
@@ -90,6 +108,13 @@ def face_detection(base_image, video_path: str = None):
 
 
 def live_face_detection(base_image, video_path: str = None):
+    """
+    This function starts the face detection in a separate thread and waits for the user to press Enter to stop the detection.
+
+    Args:
+        base_image: The image to be used as a base for face recognition.
+        video_path: The path to the video file. If None, the webcam will be used.
+    """
     thread = threading.Thread(target=face_detection, args=(base_image.copy(), video_path))
     thread2 = threading.Thread(target=listener)
     thread.start()
@@ -97,11 +122,23 @@ def live_face_detection(base_image, video_path: str = None):
 
 
 def listener():
+    """
+    This function waits for the user to press Enter to stop the face detection and close the window.
+    """
     input()
     event.set()
 
 
 def use_filter(frame):
+    """
+    This function applies the selected filter to the frame.
+
+    Args:
+        frame: The frame to be used as a base for face recognition.
+
+    Returns:
+        The frame with the selected filter applied.
+    """
     if face_detected == False:
         return frame
     
@@ -114,6 +151,17 @@ def use_filter(frame):
     
 
 def apply_makeup(frame, makeup_colors):
+    """
+    This function applies the selected makeup colors to the frame.
+    
+    Args:
+        frame: The frame to be used as a base for face recognition.
+        makeup_colors: The colors to be used for the makeup.
+
+    Returns:
+        The frame with the selected makeup applied.
+    """
+
     # Find all facial features in all the faces in the image
     face_landmarks_list = face_recognition.face_landmarks(frame)
 
@@ -160,3 +208,5 @@ def apply_makeup(frame, makeup_colors):
                   110), width=6)
 
     return np.array(pil_image)
+
+#pydoc.writedoc("live_face_detection")
