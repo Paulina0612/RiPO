@@ -43,7 +43,7 @@ def face_detection(base_image, video_path: str = None):
     print("Select filter:")
     print("1. Normal Makeup")
     print("2. Funny Makeup")
-    print("3. Funny Makeup")
+    print("3. No Makeup")
     print("Press ESC to exit and Enter to stop the detection.")
 
     if video_path is not None:
@@ -94,7 +94,7 @@ def face_detection(base_image, video_path: str = None):
         elif cv2.getWindowProperty("Video", cv2.WND_PROP_VISIBLE) <1:
             return
         # 1 key to toggle filter
-        elif key == 49 and face_detected:  
+        if key == 49 and face_detected:  
             filter = Filer.NORMAL_MAKEUP       
         # 2 key to toggle filter
         elif key == 50 and face_detected:
