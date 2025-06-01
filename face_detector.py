@@ -8,7 +8,7 @@ This module provides functions to detect and recognize faces in images using the
 It includes functions to check if a face is detected, get face locations, and compare two images to see if they contain the same face.
 """
 
-face_match = False 
+#face_match = False 
 
 def detect_face(image):
     """
